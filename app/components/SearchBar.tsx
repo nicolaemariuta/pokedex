@@ -31,7 +31,7 @@ const SearchBar = () => {
     const [pokemons, setPokemons] = useState([])
 
     const [pokemon, setPokemon] = useState('')
-    const {data: capturePokemonData, isValidatingCapturePokemon, errorCapturePokemon} = useSWR(pokemon === '' ? null : `https://pokeapi.co/api/v2/pokemon/${pokemon}`, fetcher);
+    const {data: capturePokemonData} = useSWR(pokemon === '' ? null : `https://pokeapi.co/api/v2/pokemon/${pokemon}`, fetcher);
     const [capturePokemon, setCapturePokemon] = useState<PokemonDetailsProps>()
     const [isOpen, setIsOpen] = useState(false);
 
@@ -80,12 +80,12 @@ const SearchBar = () => {
       }
     },[capturePokemonData]) 
 
-    useEffect(()=>{
-      if(errorCapturePokemon) {
-        console.log('Error occured when searching pokemon')
-        alert('Error occured when searching pokemon')
-      }
-    },[errorCapturePokemon])
+    // useEffect(()=>{
+    //   if(errorCapturePokemon) {
+    //     console.log('Error occured when searching pokemon')
+    //     alert('Error occured when searching pokemon')
+    //   }
+    // },[errorCapturePokemon])
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
