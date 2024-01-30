@@ -6,7 +6,7 @@ export async function fetchPokemons() {  // fetch pokemon here instead
 
     const result = await response.json()
 
-    return result.results.map((pokemon) => pokemon.name);
+    return result.results.map((pokemon:any) => pokemon.name);
 }
 
 export async function getPokemonDetails(name: string) {
