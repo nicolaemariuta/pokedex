@@ -14,7 +14,7 @@ interface PokemonDetailProps {
   isOpen: boolean;
   isCaptureMode: boolean;
   closeModal: () => void;
-  pokemon: PokemonDetailsProps;
+  pokemon: PokemonDetailsProps | undefined;
   // here I might have to add one more for where it is for catching pokemons or view details
 }
 
@@ -34,28 +34,32 @@ const PokemonDetails = ({
   pokemon,
 }: PokemonDetailProps) => {
   const capturePokemon = () => {
-    const pokedex = getPokedexFromLS();
-    localStorage.setItem("Pokedex", JSON.stringify([...pokedex, pokemon]));
+    if (pokemon) {
+      const pokedex = getPokedexFromLS();
+      localStorage.setItem("Pokedex", JSON.stringify([...pokedex, pokemon]));
 
-    window.dispatchEvent(new Event("PokedexUpdate"));
-    closeModal();
+      window.dispatchEvent(new Event("PokedexUpdate"));
+      closeModal();
+    }
   };
 
   const releasePokemon = () => {
-    const pokedex = getPokedexFromLS();
-    const updatedPokedex = pokedex.filter(
-      (item: PokemonDetailsProps) => item.id !== pokemon.id
-    );
-    localStorage.setItem("Pokedex", JSON.stringify(updatedPokedex));
+    if (pokemon) {
+      const pokedex = getPokedexFromLS();
+      const updatedPokedex = pokedex.filter(
+        (item: PokemonDetailsProps) => item.id !== pokemon.id
+      );
+      localStorage.setItem("Pokedex", JSON.stringify(updatedPokedex));
 
-    window.dispatchEvent(new Event("PokedexUpdate"));
-    closeModal();
+      window.dispatchEvent(new Event("PokedexUpdate"));
+      closeModal();
+    }
   };
 
   console.log("PokemonDetailProps");
   console.log(pokemon);
 
-  return isOpen ? (
+  return pokemon ? (
     <>
       {" "}
       <Transition appear show={isOpen} as={Fragment}>
@@ -151,36 +155,6 @@ const PokemonDetails = ({
                       ) : (
                         <></>
                       )}
-
-                      {/* <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
-                        <Image
-                          src={pokemon.imageUrl}
-                          alt="car model"
-                          fill
-                          priority
-                          className="object-contain"
-                        />
-                      </div>
-
-                      <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
-                        <Image
-                          src={pokemon.imageUrl}
-                          alt="car model"
-                          fill
-                          priority
-                          className="object-contain"
-                        />
-                      </div>
-
-                      <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
-                        <Image
-                          src={pokemon.imageUrl}
-                          alt="car model"
-                          fill
-                          priority
-                          className="object-contain"
-                        />
-                      </div> */}
                     </div>
                   </div>
 
