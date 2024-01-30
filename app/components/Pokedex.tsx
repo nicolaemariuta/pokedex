@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 
 import { PokemonDetailsProps } from "@/types";
 import { PokemonCard } from ".";
@@ -15,12 +15,16 @@ const getPokedexFromLS = () => {
 };
 
 const Pokedex = () => {
-  const [pokedex, setPokedex] = useState(getPokedexFromLS());
+  const [pokedex, setPokedex] = useState([]);
 
-  window.addEventListener("PokedexUpdate", () => {
-    console.log("Change to local storage!");
+  useEffect(()=>{
     setPokedex(getPokedexFromLS());
-  });
+
+    window.addEventListener("PokedexUpdate", () => {
+      console.log("Change to local storage!");
+      setPokedex(getPokedexFromLS());
+    });
+    },[])
 
   return (
     <div className="mt-12 padding-x padding-y max-width" id="discover">
@@ -35,7 +39,6 @@ const Pokedex = () => {
       ) : (
         <div className="home__error-container">
           <h2 className="text-black text-xl font-bold">Oops, you do not have any pokemons!</h2>
-          <p>{pokedex?.message}</p>
         </div>
       )}
     </div>
