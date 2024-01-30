@@ -37,7 +37,7 @@ const SearchBar = () => {
 
     useEffect(()=>{
       if(response) {
-        const pokemons = response.results.map((pokemon) => pokemon.name)
+        const pokemons = response.results.map((pokemon:any) => pokemon.name)
         setPokemons(pokemons)
       }
     },[response]) // useEffect will run whenever ouseState value changes
@@ -52,7 +52,7 @@ const SearchBar = () => {
     useEffect(()=>{
       if(capturePokemonData) {
   
-        const pokemonStats = capturePokemonData.stats.map((stat) => {
+        const pokemonStats = capturePokemonData.stats.map((stat:any) => {
           return {
             name: stat.stat.name,
             value:stat.base_stat,
@@ -60,7 +60,7 @@ const SearchBar = () => {
         })
 
         const pokemonTypes = pokemonTypeImages.filter((type) => {
-          return capturePokemonData.types.some(t => t.type.name === type.name)
+          return capturePokemonData.types.some((t:any) => t.type.name === type.name)
         })
 
         const selectedPokemon = {
