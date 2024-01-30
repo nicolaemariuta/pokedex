@@ -35,8 +35,8 @@ const SearchPokemon = ({ pokemons, pokemon, setPokemon}: SearchPokemonProps) => 
 
             <Combobox.Input className="search-manufacturer__input"
                 placeholder="Bulbasaur"
-                displayValue={(pokemon: String) => pokemon}
-                onChange={(e) => setQuery(e.target.value)} />
+                displayValue={(pokemon: any) => pokemon}
+                onChange={(e:any) => setQuery(e.target.value)} />
 
             <Transition
                 as={Fragment}
@@ -50,14 +50,14 @@ const SearchPokemon = ({ pokemons, pokemon, setPokemon}: SearchPokemonProps) => 
                         filteredPokemons.map((item) => (
                             <Combobox.Option
                                 key={item}
-                                className={({ active }) => `
+                                className={({ active } : {active:any}) => `
                                     relative search=manufacturer__option
                                     ${active ? 'bg-primary-blue text-white' : 'text-gray-900'}
                                     `}
                                 value={item}
                             >
 
-                                {({ selected, active }) => (
+                                {({ selected, active } : { selected:any, active:any }) => (
                                     <>
                                         <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
                                             {item}
