@@ -5,10 +5,6 @@ import CustomButton  from './CustomButton';
 
 const Intro = () => {
 
-    const handleScroll = () => {
-
-    }
-
     return (
         <div className="hero">
             <div className="flex-1 pt-36 padding-x">
